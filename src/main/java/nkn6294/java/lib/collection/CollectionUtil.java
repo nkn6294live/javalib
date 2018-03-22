@@ -1,11 +1,15 @@
 package nkn6294.java.lib.collection;
 
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+
+import nkn6294.java.lib.delegate.Action;
+import nkn6294.java.lib.delegate.Function;
 
 public class CollectionUtil {
 
@@ -152,5 +156,20 @@ public class CollectionUtil {
                 }
             }
         }
+    }
+    
+    public static void actionEnumeration(Enumeration<?> enumerator, Action<Object> action) {
+        while(enumerator.hasMoreElements()) {
+            action.action(enumerator.nextElement());
+        }
+    }
+    public static void exploreEnumeration(Enumeration<?> enumerator, Function<Object, String> func) {
+        final Function<Object, String> func_ = func;
+        actionEnumeration(enumerator, new Action<Object>() {
+            @Override
+            public void action(Object... params) {
+                System.out.println(func_.action(params));
+            }
+        });
     }
 }

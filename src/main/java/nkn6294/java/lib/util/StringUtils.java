@@ -5,23 +5,7 @@ import java.security.InvalidParameterException;
 import java.util.Random;
 
 public class StringUtils {
-	public static boolean validateInputString(int maxLength, String... fields) {
-		char[] chars = invalidChars.toCharArray();
-		for(String field : fields) {
-			if (field == null || field.isEmpty()) {
-				continue;
-			}
-			if (maxLength > 0 && field.length() > maxLength) {
-				return false;
-			}
-			for (char c : chars) {
-				if (field.contains("" + c)) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
+	
 	public static boolean validateInputString(int maxLength, boolean isNullOrEmptyAble, String... fields) {
 		char[] chars = invalidChars.toCharArray();
 		if (maxLength < 0) {
@@ -31,7 +15,7 @@ public class StringUtils {
 			return false;
 		}
 		for(String field : fields) {
-			if (field == null) {
+			if (field == null || field.isEmpty()) {
 				if (isNullOrEmptyAble) {
 					continue;
 				}
@@ -111,6 +95,37 @@ public class StringUtils {
 		System.out.println("Name:" + name);
 		System.out.println("Ext:" + ext);
 	}
+    
+    public static String LengthToSize(long lengthLong) {
+        String suffix = "B";
+        double length = (double) lengthLong;
+        if (length >= 1024) {
+            length /= 1024;
+            suffix = "K";
+        } else {
+            return String.format("%.0f%s", length, suffix);
+        }
+        if (length >= 1024) {
+            length /= 1024;
+            suffix = "M";
+        } else {
+            return String.format("%.0f%s", length, suffix);
+        }
+        if (length >= 1024) {
+            length /= 1024;
+            suffix = "G";
+        } else {
+            return String.format("%.02f%s", length, suffix);
+        }
+        if (length >= 1024) {
+            length /= 1024;
+            suffix = "T";
+            return String.format("%.02f%s", length, suffix);
+        } else {
+            return String.format("%.02f%s", length, suffix);
+        }
+    }
+    
     private final static char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefjhijklmnopqrstuvwxyz0123456789".toCharArray();
 	private final static String invalidChars = "<>\"'{}()[]`&";
 	private final static Random random = new Random();

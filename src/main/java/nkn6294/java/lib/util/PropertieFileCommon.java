@@ -2,6 +2,7 @@ package nkn6294.java.lib.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,4 +54,28 @@ public class PropertieFileCommon {
 			}
 		}
 	}
+	
+	 public static Properties ReadFromFile(String filePath) throws FileNotFoundException, IOException { //config.properties
+	        FileInputStream input = new FileInputStream(filePath);
+	        Properties properties = new Properties();
+	        properties.load(input);
+	        return properties;
+	    }
+
+	    public static void WriteToFile(String filePath, Properties properties, String... comments) throws FileNotFoundException, IOException {
+	        File file = new File(filePath);
+	        if (!file.exists()) {
+	            file.createNewFile();
+	        }
+	        FileOutputStream output = new FileOutputStream(file);
+	        if (comments.length > 0) {
+	            StringBuilder builder = new StringBuilder();
+	            for(String str : comments) {
+	                builder.append(str);
+	            }
+	            properties.store(output, builder.toString());
+	        } else {
+	            properties.store(output, null);
+	        }
+	    }
 }
