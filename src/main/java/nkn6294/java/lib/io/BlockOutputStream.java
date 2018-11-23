@@ -19,11 +19,7 @@ public class BlockOutputStream {
     public BlockOutputStream(OutputStream outputStream, byte delimeterByte, IConvertData convertData) {
         this.outputStream = outputStream;
         this.delimeterByte = delimeterByte;
-        if (convertData == null) {
-            this.convertData = new DefaultConvertData();
-        } else {
-            this.convertData = convertData;
-        }
+        this.convertData = convertData == null ? new DefaultConvertData() : convertData;
     }
 
     public byte getDelimeterByte() {
@@ -70,7 +66,6 @@ public class BlockOutputStream {
         this.outputStream.write(NEW_LINE_BYTE);
         this.outputStream.flush();
     }
-
 
     public void close() throws Exception {
         if (this.outputStream != null) {

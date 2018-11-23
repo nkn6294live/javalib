@@ -10,7 +10,8 @@ import java.io.Reader;
 import java.io.Writer;
 
 public final class IOUtil{
-    public enum FreeResourceType{
+    
+	public enum FreeResourceType{
         FREE_INPUT,
         FREE_OUTPUT,
         FREE_ALL,

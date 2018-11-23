@@ -120,14 +120,11 @@ public class InputStreamBlock implements DocumentReader {
         while (true) {
             if (!actionFlag.getFlag()) {
                 if ((word = this.nextElementAdvance(DELIMETER_WORD, actionFlag)) != null) {
-//                    try {
                         String output = actionWord.action(word);
                         if (output != null) {
                             writer.write(output);
                             writer.write(actionFlag.getCurrentChar());
                         }
-//                    } catch (Exception ex) {
-//                    }
                 } else {
                     return null;
                 }
